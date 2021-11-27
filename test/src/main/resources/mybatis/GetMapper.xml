@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qzsy.test.user.dao.IUserDao">
+    <!--    查询语句-->
+    <sql id="GetUserInfoSql">
+        select *
+        from user_user
+    </sql>
+
+    <!-- 查询结果字段与类的属性之间的匹配 -->
+    <resultMap id="GetUserInfoRst" type="Wchat">
+        <result property="city" column="city"/>
+        <result property="province" column="province"/>
+        <result property="country" column="country"/>
+        <result property="language" column="language"/>
+        <result property="gender" column="gender"/>
+        <result property="id" column="id"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="createTime" column="createTime"/>
+    </resultMap>
+    <!-- 查询语句 -->
+    <select id="GetUserInfo" parameterType="Long" resultMap="GetUserInfoRst">
+        <include refid="GetUserInfoSql"/>
+    </select>
+</mapper>

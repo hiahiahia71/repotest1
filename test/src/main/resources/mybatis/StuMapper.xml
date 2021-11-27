@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qzsy.test.user.dao.IStuDao">
+    <!--    查询语句-->
+    <sql id="selectStuCourSql">
+        select ss.sex,ss.stu_num,sc.cour_name,sc.cour_hour,ss.name
+        from cour sc, rf_stu_cour ssc, stu_stu ss
+        where sc.id = ssc.cou_id
+        and ss.id = ssc.stu_id
+        <if test="stuId != null">
+            and ss.id = #{stuId}
+        </if>
+        order by ss.create_time desc
+    </sql>
+
+    <!-- 查询结果字段与类的属性之间的匹配 -->
+    <resultMap id="selectStuCourRst" type="StuCour">
+        <result property="sex" column="sex"/>
+        <result property="courName" column="cour_name"/>
+        <result property="courHour" column="cour_hour"/>
+        <result property="stuName" column="name"/>
+        <result property="stuNum" column="stu_num"/>
+    </resultMap>
+    <!-- 查询语句 -->
+    <select id="selectStuCour" parameterType="Long" resultMap="selectStuCourRst">
+        <include refid="selectStuCourSql"/>
+    </select>
+</mapper>

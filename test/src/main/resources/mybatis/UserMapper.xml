@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qzsy.test.user.dao.IStuDao">
+<!--    查询语句-->
+    <sql id="selectClssUserSql">
+        select ss.sex,ss.stu_num,sc.cour_name,sc.cour_hour,ss.name
+        from cour sc, rf_stu_cour ssc, stu_stu ss
+        where sc.id = ssc.cou_id
+        and ss.id = ssc.stu_id
+        <if test="courId != null">
+            and sc.id = #{courId}
+        </if>
+        order by ss.create_time desc
+    </sql>
+    <!--按照id查询-->
+<!--        <sql id="selectStuIdSql">-->
+<!--            select *-->
+<!--            from stu_stu u-->
+<!--            where u.state = 0-->
+<!--            and oc.state = 0-->
+<!--            &lt;!&ndash; 查询条件, 注意与方法中的参数名一致 &ndash;&gt;-->
+<!--            <if test="stu_id != null">-->
+<!--                and u.stu_id = #{stu_id}-->
+<!--            </if>-->
+<!--            order by u.create_time desc-->
+<!--        </sql>-->
+    <!-- 查询结果字段与类的属性之间的匹配 -->
+    <resultMap id="selectClssUserRst" type="StuCour">
+        <result property="nickName" column="nickName"/>
+        <result property="courName" column="cour_name"/>
+        <result property="courHour" column="cour_hour"/>
+        <result property="stuName" column="name"/>
+        <result property="stuNum" column="stu_num"/>
+    </resultMap>
+    <!-- 查询语句 -->
+    <select id="selectClssUser" parameterType="Long" resultMap="selectClssUserRst">
+        <include refid="selectClssUserSql"/>
+    </select>
+</mapper>

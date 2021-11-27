@@ -1,0 +1,35 @@
+# ������������
+server:
+  # ��������HTTP�˿ڣ�Ĭ��Ϊ8080
+  port: 8081
+  servlet:
+    # Ӧ�õķ���·��
+    context-path: /test/
+spring:
+  datasource:
+    username: root
+    password: 15715929CWG
+    url: jdbc:mysql://localhost:3306/12-20?useUnicode=true&&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis-plus:
+  # MyBatis Mapper ����Ӧ�� XML �ļ�λ�ã�������� Mapper �����Զ��巽��(XML �����Զ���ʵ��)����Ҫ���и����ã����� Mapper ����Ӧ�� XML �ļ�λ��
+  # Maven ��ģ����Ŀ��ɨ��·������ classpath*: ��ͷ �������ض�� jar ���µ� XML �ļ���
+  mapper-locations: classpath*:mybatis/*.xml
+  # MyBaits ������ɨ��·����ͨ�������Կ��Ը����е���ע�����, �����Ӧ������
+  # ע����� Mapper ��Ӧ�� XML �ļ��п���ֱ��ʹ��������������ʹ��ȫ�޶�������(�� XML �е��õ�ʱ���ð�������)
+  typeAliasesPackage: com.qzsy.test.**.model
+  global-config:
+    id-type: assign_id
+    db-column-underline: false
+    refresh-mapper: true
+  configuration:
+    # �Ƿ����Զ��շ���������camel case��ӳ��
+    # ���Ӿ������ݿ����� A_COLUMN���»��������� ������ Java ������ aColumn���շ������� ������ӳ�䡣
+    map-underscore-to-camel-case: true
+    # ���õĻ����ȫ�ֿ���
+    cache-enabled: true
+    # ��ʱ���صĿ���
+    lazyLoadingEnabled: true
+    # �����Ļ�����ʱ����һ������ʱ����ظö���ȫ�����ԣ��������������
+    multipleResultSetsEnabled: true
